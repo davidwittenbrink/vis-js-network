@@ -1,0 +1,60 @@
+<link rel="import" href="../polymer/polymer.html">
+<!--
+An element representing a vis.js edge.
+
+Example:
+
+    <vis-js-edge from="1" to="2"></vis-js-edge>
+
+@group vis.js network
+@element vis-js-edge
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="vis-js-edge">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'vis-js-edge',
+
+    properties: {
+      /**
+       * `from` specifies the nodeId from which the edge should start.
+       */
+      from: {
+        type: String,
+        value: "",
+      },
+      /**
+       * `to` specifies the nodeId where the edge should end.
+       */
+      to: {
+        type: String,
+        value: ""
+      },
+      /**
+       * `edgeObject` gives back the edge in object form.
+       *
+       * @type {{from: string, to: string}}
+       */
+      edgeObject: {
+        type: Object,
+        value: "",
+        computed: "_computeEdgeObject(from, to)"
+      }
+    },
+
+    _computeEdgeObject: function(from, to) {
+      return {from: from, to: to};
+    }
+  });
+
+</script>
