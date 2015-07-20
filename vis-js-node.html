@@ -1,0 +1,62 @@
+<link rel="import" href="../polymer/polymer.html">
+<!--
+An element representing a vis.js node.
+
+Example:
+
+    <vis-js-node label="node 1" node-id="1"></vis-js-node>
+
+@group vis.js network
+@element vis-js-node
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="vis-js-node">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'vis-js-node',
+
+    properties: {
+      /**
+       * `label` is the label that is printed on your node.
+       */
+      label: {
+        type: String,
+        value: ""
+      },
+      /**
+       * `nodeId` is the ID your node has. You need this to be able to
+       * specify an edge.
+       */
+      nodeId: {
+        type: String,
+        value: ""
+      },
+      /**
+       * `nodeObject` is a representation of the node in object form.
+       *
+       * @type {{id: string, label: string}}
+       */
+      nodeObject: {
+        type: Object,
+        value: "",
+        computed: "_computeNodeObject(label, nodeId)"
+      }
+    },
+
+    _computeNodeObject: function(label, nodeId) {
+      return {id: nodeId, label: label};
+    }
+
+  });
+
+</script>

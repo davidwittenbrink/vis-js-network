@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>vis-js-network Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../vis-js-network.html">
+  </head>
+  
+  <body unresolved>
+
+    <p>An example of <code>&lt;vis-js-network&gt;</code>:</p>
+
+    <template is="dom-bind">
+      <style is="custom-style">
+        vis-js-network {
+          border: 1px solid black;
+          --vis-js-network-width: 600px;
+          --vis-js-network-height: 600px;
+        }
+      </style>
+      <vis-js-network id="vjn" treemode on-vis-js-ready="visJsReady">
+
+        <vis-js-edge from="1" to="2"></vis-js-edge>
+        <vis-js-edge from="1" to="3"></vis-js-edge>
+        <vis-js-edge from="3" to="4"></vis-js-edge>
+        <vis-js-edge from="3" to="5"></vis-js-edge>
+        <vis-js-edge from="5" to="6"></vis-js-edge>
+        <vis-js-edge from="5" to="7"></vis-js-edge>
+        <vis-js-edge from="5" to="8"></vis-js-edge>
+        <vis-js-edge from="8" to="9"></vis-js-edge>
+
+        <vis-js-node label="node 1" node-id="1"></vis-js-node>
+        <vis-js-node label="node 2" node-id="2"></vis-js-node>
+        <vis-js-node label="node 3" node-id="3"></vis-js-node>
+        <vis-js-node label="node 4" node-id="4"></vis-js-node>
+        <vis-js-node label="node 5" node-id="5"></vis-js-node>
+        <vis-js-node label="node 6" node-id="6"></vis-js-node>
+        <vis-js-node label="node 7" node-id="7"></vis-js-node>
+        <vis-js-node label="node 8" node-id="8"></vis-js-node>
+        <vis-js-node label="node 9" node-id="9"></vis-js-node>
+
+      </vis-js-network>
+    </template>
+
+    <script>
+
+      var template = document.querySelector('template');
+
+      template.visJsReady = function() {
+        
+        this.$.vjn.nodes = this.$.vjn.nodes.concat([
+          {id: "17", label: "added dynamically 1"},
+          {id: "18", label: "added dynamically"}
+        ]);
+        
+        this.$.vjn.edges = this.$.vjn.edges.concat([
+          {from: "17", to: "18"},
+          {from: "9", to: "17"}
+        ]);
+
+      };
+
+    </script>
+
+  </body>
+</html>

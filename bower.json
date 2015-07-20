@@ -1,0 +1,30 @@
+{
+  "name": "vis-js-network",
+  "version": "0.1",
+  "authors": [
+    "David Wittenbrink <david.wittenbrink@gmail.com>"
+  ],
+  "description": "An element providing a simple way to draw a network using vis.js",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "vis.js",
+    "network",
+    "visualization",
+    "tree"
+  ],
+  "main": "vis-js-network.html",
+  "homepage": "http://davidwittenbrink.github.io/vis-js-network/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "vis": "~4.4.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  }
+}

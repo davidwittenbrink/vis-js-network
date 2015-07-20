@@ -1,0 +1,130 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="../vis/dist/vis.js"></script>
+<link rel="stylesheet" href="../vis/dist/vis.css">
+<link rel="import" href="vis-js-node.html">
+<link rel="import" href="vis-js-edge.html">
+<!--
+An element providing a simple way to draw a network using vis.js
+
+Example:
+
+    <vis-js-network>
+      <vis-js-edge from="1" to="2"></vis-js-edge>
+      <vis-js-node label="node 1" node-id="1"></vis-js-node>
+      <vis-js-node label="node 2" node-id="2"></vis-js-node>
+    </vis-js-network>
+
+@group vis.js network
+@element vis-js-network
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="vis-js-network">
+
+  <style>
+    :host {
+      display: block;
+      box-sizing: border-box;
+      width: var(--vis-js-network-width, 100%);
+      height: var(--vis-js-network-height, 400px);
+    }
+    #networkContainer {
+      width: var(--vis-js-network-width, 100%);
+      height: var(--vis-js-network-height, 400px);
+    }
+  </style>
+
+  <template>
+    <div id="networkContainer"></div>
+    <content id="nodes" select="vis-js-node"></content>
+    <content id="edges" select="vis-js-edge"></content>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'vis-js-network',
+
+    properties: {
+
+      nodes: {
+        type: Array,
+        value: [],
+        observer: "_nodesChanged"
+      },
+      edges: {
+        type: Array,
+        value: [],
+        observer: "_edgesChanged"
+      },
+      network: Object,
+      options: {
+        type: Object,
+        value: {}
+      },
+      treemode: {
+        type: Boolean,
+        value: false
+      }
+    },
+
+    ready: function() {
+
+      this.nodes = (typeof this.nodes === "string") ? JSON.parse(this.nodes) : this.nodes;
+      this.edges = (typeof this.edges === "string") ? JSON.parse(this.edges) : this.edges;
+      this.options = (typeof this.options === "string") ? JSON.parse(this.options) : this.options;
+      this._nodesDataSet = new vis.DataSet(this.nodes);
+      this._edgesDataSet = new vis.DataSet(this.edges);
+
+      var data = {
+        nodes: this._nodesDataSet,
+        edges: this._edgesDataSet
+      };
+
+      if (this.treemode) {
+        this.options = {"layout": {"hierarchical": {"enabled": true, "sortMethod": "directed"}}};
+      }
+
+      this.network = new vis.Network(this.$.networkContainer, data, this.options);
+    },
+
+    attached: function() {
+
+      this.async(function() {
+        
+        Polymer.dom(this.$.nodes).getDistributedNodes().forEach(function(node) {
+          var nodeObject = node.nodeObject;
+          this._nodesDataSet.add(nodeObject);
+          this.nodes.push(nodeObject);
+        }.bind(this));
+
+        Polymer.dom(this.$.edges).getDistributedNodes().forEach(function(edge) {
+          var edgeObject = edge.edgeObject;
+          this._edgesDataSet.add(edge.edgeObject);
+          this.edges.push(edgeObject);
+        }.bind(this));
+        this.fire("vis-js-ready");
+
+      }.bind(this));
+    },
+
+    _edgesChanged: function(newValue, oldValue) {
+      if (this.network) {
+        this._edgesDataSet.clear();
+        this._edgesDataSet.add(newValue);
+      }
+    },
+    
+    _nodesChanged: function(newValue, oldValue) {
+      if (this.network) {
+        this._nodesDataSet.clear();
+        this._nodesDataSet.add(newValue);
+      }
+    }
+
+  });
+
+</script>
