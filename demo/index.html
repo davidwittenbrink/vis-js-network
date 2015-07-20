@@ -16,10 +16,12 @@
       <style is="custom-style">
         vis-js-network {
           border: 1px solid black;
-          --vis-js-network-width: 600px;
-          --vis-js-network-height: 600px;
+          --vis-js-network-width: 400px;
+          --vis-js-network-height: 400px;
         }
       </style>
+
+      With <code>treemode</code> enabled:
       <vis-js-network id="vjn" treemode on-vis-js-ready="visJsReady">
 
         <vis-js-edge from="1" to="2"></vis-js-edge>
@@ -42,6 +44,7 @@
         <vis-js-node label="node 9" node-id="9"></vis-js-node>
 
       </vis-js-network>
+
     </template>
 
     <script>
@@ -51,8 +54,8 @@
       template.visJsReady = function() {
         
         this.$.vjn.nodes = this.$.vjn.nodes.concat([
-          {id: "17", label: "added dynamically 1"},
-          {id: "18", label: "added dynamically"}
+          {id: "17", label: "Dynamically added Node 1"},
+          {id: "18", label: "Dynamically added Node 2"}
         ]);
         
         this.$.vjn.edges = this.$.vjn.edges.concat([

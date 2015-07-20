@@ -14,7 +14,7 @@
     "tree"
   ],
   "main": "vis-js-network.html",
-  "homepage": "http://davidwittenbrink.github.io/vis-js-network/",
+  "homepage": "https://github.com/davidwittenbrink/vis-js-network",
   "ignore": [
     "/.*",
     "/test/"
